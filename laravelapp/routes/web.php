@@ -16,8 +16,10 @@ use App\Http\Middleware\HelloMiddleware;
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get("info",function(){
+    return view("hello.info");
+});
 Route::get("hello","HelloController@index");
-Route::post("hello","HelloController@post");
+//Route::post("hello","HelloController@post");
 
 
