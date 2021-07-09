@@ -12,7 +12,7 @@ use App\Http\Requests\HelloRequest;
 class HelloController extends Controller
 {
     public function index(Request $request){
-        $items = DB::select("select * from preople");
+        $items = DB::table("preople")->orderBy("age","asc")->get();
         return view('hello.index',['items'=>$items]);
     }
 
@@ -61,5 +61,12 @@ class HelloController extends Controller
         $param = ["id" => $request->id];
         DB::delete("delete from preople where id = :id",$param);
         return redirect("/hello");
+    }
+
+    public function show(Request $request){
+        $min = $request->min;
+        $max = $request->max;
+        $items = DB::table("preople")->whereraw("age >= ? and age <= ?",[$min,$max])-> get();
+        return view("hello.show",["items" => $items]);
     }
 }
