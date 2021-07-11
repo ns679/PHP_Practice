@@ -17,7 +17,9 @@ class PersonController extends Controller
     }
 
     public function search(Request $request){
-        $item = Preople::find($request->input);
+        $min = $request->input * 1;
+        $max = $min + 10;
+        $item = Preople::ageGreaterThan($min)->ageLessThan($max)->first();
         $param = ["input" => $request->input,"item" => $item];
         return view("person.find",$param);
     }
