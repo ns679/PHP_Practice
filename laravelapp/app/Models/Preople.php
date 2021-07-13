@@ -30,6 +30,9 @@ class Preople extends Model
     public function scopeAgeLessThan($query,$n){
         return $query->where("age","<=",$n);
     }
+    public function board(){
+        return $this->hasMany("App\Models\Board");
+    }
     protected static function boot(){
         parent::boot();
         static::addGlobalScope(new ScopePreople());
