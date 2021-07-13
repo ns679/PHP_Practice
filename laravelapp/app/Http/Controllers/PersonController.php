@@ -9,8 +9,10 @@ use Illuminate\Http\Request;
 class PersonController extends Controller
 {
     public function index(Request $request){
-        $items = Preople::all();
-        return view("Person.index",["items" => $items]);
+        $hasItems = Preople::has("board")->get();
+        $noItems = Preople::doesntHave("board")->get();
+        $param = ["hasItems" => $hasItems,"noItems" => $noItems];
+        return view("Person.index",$param);
     }
 
     public function find(Request $request){
